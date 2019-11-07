@@ -1,0 +1,21 @@
+命令行cd进入根目录，然后运行 bin/neo4j console 开启服务 ，可以直接在浏览器输入'http://localhost:7474'进入可视化界面。
+
+
+使用python代码创建数据链接：
+  1.python 导入   from py2neo import Node, Relationship, Graph, NodeMatcher, RelationshipMatcher
+  2.连接到数据库  graph = Graph('http://localhost:7474', username='neo4j', password='123')  # 密码自行设置的
+  3.定义和在图中创建节点   
+      a = Node('label', name = 'a' )
+      b = Node('label', name = 'b' )
+      graph.create(a)
+      graph.create(b)
+  4.创建关系
+      r1 = Relationship(a, 'to', b, name = 'to') #可以增加一些属性，也可以省略
+      graph.create(r1)
+  5.运行并打开浏览器地址查看可视化图
+  
+
+清空所有数据命令如下：
+    MATCH (n)
+    OPTIONAL MATCH (n)-[r]-()
+    DELETE n,r
