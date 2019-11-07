@@ -1,3 +1,5 @@
+import json
+
 class HtmlOutputer(object):
     def __init__(self):
         self.datas = []
@@ -25,4 +27,8 @@ class HtmlOutputer(object):
         fout.write("</table>")
         fout.write("</body>")
         fout.write("</html>")
-        fout.close()
+        fout.close
+        
+    def output_json(self,data):
+        with open("all.json","w",encoding='utf-8') as f:
+            json.dump(data,f,ensure_ascii=False,indent=4);
