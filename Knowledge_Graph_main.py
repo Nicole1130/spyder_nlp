@@ -12,10 +12,11 @@ sys.path.append(os.path.dirname(sys.argv[0]))
 
 import my_spider_main
 # 爬取指定网页内容
-#root_url = "https://baike.baidu.com/item/%E5%A7%9A%E6%98%8E/28?fr=aladdin" # 姚明
-root_url = "https://baike.baidu.com/item/%E5%A7%9A%E6%B2%81%E8%95%BE/531809" # 姚女儿
+root_url = "https://baike.baidu.com/item/%E5%A7%9A%E6%98%8E/28?fr=aladdin" # 姚明
+#root_url = "https://baike.baidu.com/item/%E5%A7%9A%E6%B2%81%E8%95%BE/531809" # 姚女儿
 obj_spider = my_spider_main.Spider()
 data = obj_spider.craw(root_url)
+
 
 # 文本预处理处理
 import re
@@ -29,14 +30,17 @@ sentences = re.split('(。|！|\!|\.|？|\?)',Paragraph[0])         # 保留分�
 import knowledge_tuple
 kl_tuple = knowledge_tuple.knowledge_tuple()
 Tuples = []
-#for p in Paragraph:
-#    Tuple = kl_tuple.get_tuple(p)
-#    if len(Tuple) != 0:
-#        Tuples.extend(Tuple)
-# 用姚明测试
-Tuple = kl_tuple.get_tuple()
+for p in Paragraph:
+    Tuple = kl_tuple.get_tuple(p)
+    if len(Tuple) != 0:
+        Tuples.extend(Tuple)
+## 用姚明测试
+#Tuple = kl_tuple.get_tuple()
+
+
 
 # 导入neo4j
 import py2neo_main
 my_neo4j = py2neo_main.my_neo4j()
+my_neo4j.clear_graph()
 my_neo4j.add_tuple(Tuples)
